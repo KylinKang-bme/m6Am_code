@@ -1,3 +1,5 @@
+# adjust the format of MACS2 output files (summit file)
+# also need to keep the chr number and name the same with the reference vcf file (use bash)
 import sys
 
 f = sys.argv[1]
