@@ -2,6 +2,7 @@ import sys
 import numpy
 import queue as Q
 
+# build a priority queue for annotated peaks
 def hashOrder(file):
 
 	RNA = {}
@@ -68,6 +69,7 @@ def matchPeak(file1, file2):
 				for each in sample2:
 
 				
+					# if two peaks from two different samples overlap, they are considered as common peaks
 					if not one[0] > each[1] and not each[0] > one[1]: 
 
 
@@ -78,8 +80,11 @@ def matchPeak(file1, file2):
 		f1.write(each)
 
 
+# peak from sample 1
 file1 = sys.argv[1]
+# peak from sample 2
 file2 = sys.argv[2]
+# output file for common peaks
 file3 = sys.argv[3]
 
 matchPeak(file1, file2, file3)
