@@ -2,6 +2,7 @@ import sys
 import numpy
 import queue as Q
 
+# build a priority queue to store the location and chromosome of called peaks
 def hashOrder(file):
 
 	RNA = {}
@@ -42,6 +43,7 @@ def hashOrder(file):
 
 	return RNA
 
+# built a priority queue to store the location, gene type, etc information of genome annotation
 def omg(file):
 
 	# gene = set()
@@ -59,6 +61,7 @@ def omg(file):
 
 		line = line.strip('\n').split("\t")
 
+		## the following code should be adjusted according to what type of annotation / information is needed from the vcf file 
 		# if line[2] == 'gene':
 
 		key = line[0]
@@ -110,6 +113,7 @@ def omg(file):
 	return RNA
 
 
+# match the location of called peaks to annotated genome
 def matchPeak(file1, file2):
 
 	# bed
@@ -140,14 +144,19 @@ def matchPeak(file1, file2):
 
 					point = one[0] + 100
 
+					# if the summit of a peak is in the range of a gene annotation, the peak is considered to be located in this gene
 					if point >= each[1][0] and point <= each[1][1]:
 
 						rec.add(indexs + "\t" + str(one[0]) + "\t" + str(one[1]) + "\t"  + str(each[1][0]) + "\t" + str(each[1][1]) + "\t" + each[0][0] + "\t"  + each[0][1] + "\n")
 	for each in rec:
 		f1.write(each)
 
+
+# peak file
 file1 = sys.argv[1]
+# vcf file
 file2 = sys.argv[2]
+# output file
 f3 = sys.argv[3]
 
 matchPeak(file1, file2, f3)
